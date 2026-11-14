@@ -12,10 +12,11 @@ Projeto final de **Resolução de Problemas Estruturados em Computação** (Turm
 
 | Frente | O que faz | Peso | Responsável | Revisor(a) | Branch | Pasta |
 |---|---|---|---|---|---|---|
-| 1 · Tabela hash | Lista encadeada, tabela, 2 funções hash, estatísticas, testes com M = 13, 17 e 53 | 30% | _a definir_ | _a definir_ | `feat/hash` | `src/hash/` |
-| 2 · Ordenação | Bubble, Insertion e Quick Sort, contadores, modo passo a passo | 30% | _a definir_ | _a definir_ | `feat/ordenacao` | `src/ordenacao/` |
-| 3 · Dados e Grande Corrida | Leitura do `pets.txt`, gerador de 1.000 / 10.000 pets, 27 medições | 15% | _a definir_ | _a definir_ | `feat/dados` | `src/dados/` e `src/corrida/` |
-| 4 · Integração e menu | `Main`, `Menu`, README, montagem do relatório e da apresentação | 10% + 15% | _a definir_ | _a definir_ | `feat/menu` | `src/menu/` e `src/Main.java` |
+| 1 · Tabela hash | Lista encadeada, tabela, 2 funções hash, estatísticas, testes com M = 13, 17 e 53 | 30% | Tabatha | _a definir_ | `feat/hash` | `src/hash/` |
+| 2 · Ordenação | Bubble, Insertion e Quick Sort, contadores, modo passo a passo | 30% | Bianca | _a definir_ | `feat/ordenacao` | `src/ordenacao/` |
+| 3 · Dados e Grande Corrida | Leitura do `pets.txt`, gerador de 1.000 / 10.000 pets, 27 medições | 15% | João | _a definir_ | `feat/dados` | `src/dados/` e `src/corrida/` |
+| 4 · Menu e integração | `Main` e `Menu`, ligando a tabela, a ordenação e a corrida | 10% | _a definir_ | _a definir_ | `feat/menu` | `src/menu/` e `src/Main.java` |
+| 5 · Relatório e apresentação | Respostas das 9 perguntas no PDF, roteiro da apresentação, bônus com pelúcias, revisão geral do código | 15% | _a definir_ | — | `feat/relatorio` | `relatorio/` |
 
 > ⚠️ **Defesa de autoria:** a professora sorteia **qualquer integrante** para alterar **qualquer parte** do código. Se dois sorteados recusarem, **o grupo todo fica com zero**. Por isso, revise e estude as outras frentes, não só a sua.
 
@@ -33,7 +34,7 @@ rpec-projeto/
 ├── .gitignore
 ├── dados/
 │   └── pets.txt                 ← numero;nome;especie;mania (UTF-8, 50 pets)
-├── relatorio/                   ← tabelas exportadas e PDF final
+├── relatorio/                   ← frente 5: tabelas exportadas e PDF final
 └── src/
     ├── Main.java                ← só chama o Menu
     ├── modelo/
@@ -94,7 +95,7 @@ As branches **já existem**, então não é para criar outra. Só entre na sua:
 ```bash
 git clone https://github.com/whosjvrs/rpec-projeto.git
 cd rpec-projeto
-git switch feat/SUA-FRENTE        # feat/hash, feat/ordenacao, feat/dados ou feat/menu
+git switch feat/SUA-FRENTE        # feat/hash, feat/ordenacao, feat/dados, feat/menu ou feat/relatorio
 ```
 
 > 💡 Se o caminho da pasta tiver espaços, use aspas no `cd`: `cd "/home/voce/minha pasta"`.
@@ -144,6 +145,63 @@ Pet[] gerar(int n, Situacao situacao);    // ALEATORIO, ORDENADO ou INVERSO
 
 ---
 
+## O que cada frente entrega (checklist)
+
+Marque no PR o que já está pronto.
+
+### Frente 1 · Tabela hash (`src/hash/`)
+- [ ] `No.java`: guarda um `Pet` e o próximo `No` (lista ligada própria, **sem** `LinkedList`).
+- [ ] `HashSomaCaracteres.java`: implementa `FuncaoHash` somando os códigos dos caracteres `% m`.
+- [ ] `HashDoGrupo.java`: implementa `FuncaoHash` com a polinomial base 31.
+- [ ] `TabelaHash.java`, com o construtor `TabelaHash(int m, FuncaoHash funcao)` e os métodos:
+  - [ ] `void inserir(Pet pet)`
+  - [ ] `void buscarPorNome(String nome)`: mostra **todos** os pets com aquele nome
+  - [ ] `boolean remover(int numero)`: percorre todos os baldes
+  - [ ] `void exibir()`: mostra a tabela balde por balde
+  - [ ] estatísticas: `double fatorCarga()`, `int baldesVazios()`, `int maiorLista()`, `int colisoes()` (só nomes diferentes no mesmo balde)
+- [ ] Um jeito de imprimir as estatísticas para M = 13, 17 e 53, com as duas funções lado a lado (perguntas 3 e 4).
+
+### Frente 2 · Ordenação (`src/ordenacao/`)
+- [ ] `BubbleSort`, `InsertionSort` e `QuickSort` estendem `Ordenador`.
+- [ ] Cada um ordena uma **cópia** do vetor por `getNumero()` e devolve um `Resultado` com as comparações, as trocas (no Insertion, os deslocamentos) e o tempo.
+- [ ] O Quick Sort usa o **último elemento** como pivô.
+- [ ] `Narrador.java`: as frases do cenário. Quando `narracao` estiver ligada, cada comparação e cada troca é narrada, e no fim de cada passagem aparecem os contadores:
+  ```
+  ♥ Bubble Sort · passagem 1
+    Luna (60218841) > Thor (31057720)? SIM → trocam de lugar na fila do desfile!
+    Luna (60218841) > Zeus (70334512)? NÃO → Luna segue desfilando no lugar.
+    fim da passagem 1 → comparações: 2 | trocas: 1
+  ```
+
+### Frente 3 · Dados e Grande Corrida (`src/dados/` e `src/corrida/`)
+- [ ] `LeitorArquivo.java`: `Pet[] ler(String caminho)` lê o `dados/pets.txt` em **UTF-8**.
+- [ ] `GeradorPets.java`: `Pet[] gerar(int n, Situacao situacao)` gera números **únicos** de 8 dígitos (sem `HashSet`), combinando nomes, espécies e manias.
+- [ ] `GrandeCorrida.java`: roda as **27 medições** (3 algoritmos × 3 situações × 50 / 1.000 / 10.000), com 1 rodada de aquecimento + média de 3, e imprime as **3 tabelas** (tempo, comparações e trocas). Se der tempo, exporta também um `.csv` para `relatorio/`.
+
+### Frente 4 · Menu e integração (`src/menu/` e `src/Main.java`)
+- [ ] `Menu.java` com as 9 opções e os textos do cenário:
+  ```
+  1 - Inscrever competidor
+  2 - Buscar competidores por nome
+  3 - Cancelar inscrição (nº de inscrição)
+  4 - Mostrar mesa de inscrições
+  5 - Estatísticas da mesa
+  6 - Organizar o desfile
+  7 - Desfile passo a passo
+  8 - A Grande Corrida
+  0 - Encerrar o concurso
+  ```
+- [ ] `Main.java` lê os pets, monta a tabela e chama o `Menu`.
+
+### Frente 5 · Relatório e apresentação (`relatorio/`)
+- [ ] Juntar no PDF (3 a 6 páginas) o cenário, as decisões do grupo, as tabelas da Grande Corrida e as respostas das 9 perguntas escritas por cada frente.
+- [ ] Conferir se as respostas usam os **números medidos** pelo grupo, e não só teoria.
+- [ ] Montar o roteiro da apresentação (5 a 8 minutos, com o programa rodando ao vivo).
+- [ ] Preparar o bônus: pelúcias ou fotos numeradas para ordenar ao vivo, narrando um algoritmo.
+- [ ] Revisar os PRs das outras frentes. Como quase não programa, essa pessoa precisa estudar bem o código de todos para a defesa.
+
+---
+
 ## Decisões técnicas
 
 | Decisão | Escolha |
@@ -161,6 +219,79 @@ Pet[] gerar(int n, Situacao situacao);    // ALEATORIO, ORDENADO ou INVERSO
 | Narração | Só com até 10 pets; desligada na Grande Corrida |
 
 🚫 **Proibido pelo enunciado:** `HashMap`, `Hashtable`, `HashSet`, `LinkedList` ou qualquer estrutura pronta para a tabela; `Arrays.sort`, `Collections.sort` ou qualquer ordenação pronta.
+
+---
+
+## Padrões de código
+
+- **Nomes em português**, sem acento nos identificadores (`calcularIndice`, não `calcularÍndice`).
+- Classes em `PascalCase` (`TabelaHash`), métodos e variáveis em `camelCase` (`fatorCarga`), constantes em `MAIUSCULAS` (`TAMANHO_PADRAO`).
+- **Toda classe começa com um comentário** dizendo o que ela faz. **Todo método tem um comentário** de uma linha explicando o que faz. A professora avalia "organizado e comentado", e isso também ajuda na defesa.
+- Comentários em português.
+- Indentação de 4 espaços. No IntelliJ, `Ctrl + Alt + L` formata o arquivo.
+- Arquivos sempre lidos e salvos em **UTF-8**.
+- Nada de código que ninguém do grupo saiba explicar. Se usar algo diferente, comente o porquê.
+
+Exemplo:
+
+```java
+package hash;
+
+/**
+ * Função hash que soma os códigos dos caracteres da chave.
+ * Fraqueza: anagramas (AMOR e ROMA) sempre caem no mesmo balde.
+ */
+public class HashSomaCaracteres implements FuncaoHash {
+
+    // Soma o código de cada letra e devolve o resto da divisão por m
+    @Override
+    public int calcular(String chave, int m) {
+        int soma = 0;
+        for (int i = 0; i < chave.length(); i++) {
+            soma += chave.charAt(i);
+        }
+        return soma % m;
+    }
+}
+```
+
+---
+
+## Ordem de trabalho
+
+1. ✅ **Base comum na `main`:** estrutura, `Pet`, interfaces e 50 pets. **Já está pronta.**
+2. **Em paralelo, desde já:**
+   - frente 1 → tabela hash;
+   - frente 2 → os três algoritmos;
+   - frente 3 → `LeitorArquivo` e `GeradorPets`;
+   - frente 4 → `Menu` com as opções e os textos (pode chamar métodos vazios por enquanto);
+   - frente 5 → estrutura do relatório e roteiro da apresentação.
+3. **Assim que a frente 2 entrar na `main`:** a frente 3 faz a `GrandeCorrida` usando os ordenadores.
+4. **Integração:** a frente 4 liga o menu à tabela e aos algoritmos.
+5. **Medições e relatório:** rodar as 27 medições, preencher as tabelas e responder às 9 perguntas.
+6. **Ensaio da apresentação**, mais uma rodada de "sorteio simulado": cada pessoa altera uma parte que **não** é dela.
+
+### Testando a sua parte sozinho(a)
+
+Antes do menu ficar pronto, crie na sua pasta uma classe de teste com `main`, por exemplo `src/hash/TesteHash.java`:
+
+```java
+package hash;
+
+import modelo.Pet;
+
+// Teste rápido da frente 1, sem depender do menu
+public class TesteHash {
+    public static void main(String[] args) {
+        TabelaHash tabela = new TabelaHash(13, new HashSomaCaracteres());
+        tabela.inserir(new Pet(60218841, "Luna", "gata", "dorme em cima do teclado"));
+        tabela.inserir(new Pet(31057720, "Thor", "cão", "late para o aspirador"));
+        tabela.exibir();
+    }
+}
+```
+
+Para rodar: `javac -d out $(find src -name "*.java") && java -cp out hash.TesteHash`. Pode deixar a classe no repositório, porque ela ajuda a mostrar a sua parte funcionando.
 
 ---
 
@@ -234,7 +365,8 @@ O **revisor da frente** lê o código, tira as dúvidas e aprova. Só depois dis
 | 1 · Hash | 1 a 5 | Busca por nome, tabela balde por balde, estatísticas para M = 13/17/53 e para as duas funções, fator de carga com 10.000 pets |
 | 2 · Ordenação | 6 e 8 | Comparações do Insertion com os dados já ordenados |
 | 3 · Corrida | 7 e 9 | As 3 tabelas (tempo, comparações e trocas) e o comportamento do Quick nos casos ordenado e inverso |
-| 4 · Integração | — | Revisa e junta todas as respostas no PDF |
+| 4 · Menu | — | — |
+| 5 · Relatório | — | Revisa e junta todas as respostas no PDF |
 
 ---
 
