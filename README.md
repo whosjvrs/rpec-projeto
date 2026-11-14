@@ -135,6 +135,9 @@ int calcular(String chave, int m);        // devolve um índice de 0 a m-1
 // ordenacao/Ordenador.java
 Resultado ordenar(Pet[] vetor);           // ordena uma CÓPIA e devolve os contadores
 void setNarracao(boolean ligada);         // passo a passo, só com até 10 pets
+Pet[] copiar(Pet[] original);             // ajudante: cópia do vetor
+boolean maior(Pet a, Pet b);              // ajudante: compara por número e CONTA a comparação
+void trocar(Pet[] v, int a, int b);       // ajudante: troca dois pets e CONTA a troca
 
 // ordenacao/Resultado.java
 long comparacoes; long trocas; long tempoNs;
@@ -150,16 +153,16 @@ Pet[] gerar(int n, Situacao situacao);    // ALEATORIO, ORDENADO ou INVERSO
 Marque no PR o que já está pronto.
 
 ### Frente 1 · Tabela hash (`src/hash/`)
-- [ ] `No.java`: guarda um `Pet` e o próximo `No` (lista ligada própria, **sem** `LinkedList`).
-- [ ] `HashSomaCaracteres.java`: implementa `FuncaoHash` somando os códigos dos caracteres `% m`.
-- [ ] `HashDoGrupo.java`: implementa `FuncaoHash` com a polinomial base 31.
-- [ ] `TabelaHash.java`, com o construtor `TabelaHash(int m, FuncaoHash funcao)` e os métodos:
-  - [ ] `void inserir(Pet pet)`
-  - [ ] `void buscarPorNome(String nome)`: mostra **todos** os pets com aquele nome
-  - [ ] `boolean remover(int numero)`: percorre todos os baldes
-  - [ ] `void exibir()`: mostra a tabela balde por balde
-  - [ ] estatísticas: `double fatorCarga()`, `int baldesVazios()`, `int maiorLista()`, `int colisoes()` (só nomes diferentes no mesmo balde)
-- [ ] Um jeito de imprimir as estatísticas para M = 13, 17 e 53, com as duas funções lado a lado (perguntas 3 e 4).
+- [x] `No.java`: guarda um `Pet` e o próximo `No` (lista ligada própria, **sem** `LinkedList`).
+- [x] `HashSomaCaracteres.java`: implementa `FuncaoHash` somando os códigos dos caracteres `% m`.
+- [x] `HashDoGrupo.java`: implementa `FuncaoHash` com a polinomial base 31.
+- [x] `TabelaHash.java`, com o construtor `TabelaHash(int m, FuncaoHash funcao)` e os métodos:
+  - [x] `void inserir(Pet pet)`
+  - [x] `int buscarPorNome(String nome)`: mostra **todos** os pets com aquele nome e devolve quantos achou
+  - [x] `boolean remover(int numero)`: percorre todos os baldes
+  - [x] `void exibir()`: mostra a tabela balde por balde
+  - [x] `void exibirEstatisticas()`: fator de carga, baldes vazios, maior lista e colisões (só nomes diferentes no mesmo balde)
+- [ ] Imprimir as estatísticas para M = 13, 17 e 53, com as duas funções lado a lado (perguntas 3 e 4): fica na opção 5 do menu (frente 4).
 
 ### Frente 2 · Ordenação (`src/ordenacao/`)
 - [ ] `BubbleSort`, `InsertionSort` e `QuickSort` estendem `Ordenador`.
@@ -209,14 +212,17 @@ Marque no PR o que já está pronto.
 | Cenário | **C · Concurso de Fofura**: a mesa de inscrições é a tabela hash, e a ordem do desfile é a ordenação por nº de inscrição |
 | Tamanhos da tabela | M = **13**, **17** e **53** |
 | Função hash 1 | Soma dos códigos dos caracteres `% M` |
-| Função hash 2 | Polinomial, base 31: `h = (h * 31 + letra) % M` |
+| Função hash 2 | Polinomial, base 31: `h = h * 31 + letra` e, no fim, `Math.floorMod(h, M)` |
 | Chave | Nome em maiúsculas e sem acento (`Normalizer`, forma NFD) |
 | Colisão | **Nomes diferentes no mesmo balde.** Lunas no mesmo balde não contam |
 | Remover | Por nº de inscrição, percorrendo todos os baldes |
 | Pivô do Quick Sort | **Último elemento** (expõe o pior caso da pergunta 9) |
+| Bubble Sort | **Com parada antecipada**: se uma passagem não faz nenhuma troca, para (melhor caso O(n), como nos slides) |
+| Contadores | Nos ajudantes do `Ordenador`: todo `maior` conta uma comparação, todo `trocar` conta uma troca |
 | Insertion Sort | Conta **deslocamentos** como trocas |
 | Medição | 1 rodada de aquecimento + média de 3 rodadas, com `System.nanoTime()` |
 | Narração | Só com até 10 pets; desligada na Grande Corrida |
+| Tabela principal do menu | **M = 53 com a base 31** (menos colisões e menor lista nos testes com os 50 pets) |
 
 🚫 **Proibido pelo enunciado:** `HashMap`, `Hashtable`, `HashSet`, `LinkedList` ou qualquer estrutura pronta para a tabela; `Arrays.sort`, `Collections.sort` ou qualquer ordenação pronta.
 
