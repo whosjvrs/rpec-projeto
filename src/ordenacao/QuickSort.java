@@ -32,6 +32,7 @@ public class QuickSort extends Ordenador {
 
         // 6. Para o cronômetro e devolve os números
         long tempo = System.nanoTime() - inicio;
+        ordenado = v;   // guarda o vetor ordenado para o menu mostrar
         return new Resultado(comparacoes, trocas, tempo);
     }
 
