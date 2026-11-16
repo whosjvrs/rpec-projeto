@@ -6,6 +6,7 @@ import modelo.Pet;
 // A cada passagem, o maior número "flutua" até o fim da fila.
 public class BubbleSort extends Ordenador {
 
+    // Ordena uma cópia do vetor com o Bubble Sort e devolve comparações, trocas e tempo
     @Override
     public Resultado ordenar(Pet[] original) {
         // 1. Trabalha numa cópia, para não mexer no vetor original
