@@ -11,6 +11,7 @@ public class QuickSort extends Ordenador {
     private boolean narrar;   // narração ligada nesta execução?
     private int partes;       // quantas partições já foram feitas (usado na narração)
 
+    // Ordena uma cópia do vetor com o Quick Sort e devolve comparações, trocas e tempo
     @Override
     public Resultado ordenar(Pet[] original) {
         // 1. Trabalha numa cópia, para não mexer no vetor original

@@ -78,7 +78,7 @@ public class TabelaHash {
             }
             System.out.println("null");
         }
-    } // fecha exibir
+    }
 
 
     // REMOVER: procura o número em todos os baldes e tira o nó da lista
@@ -134,4 +134,4 @@ public class TabelaHash {
         System.out.println("  Maior lista ....... " + maiorLista);
         System.out.println("  Colisões .......... " + colisoes);
     }
-}        // fehca classe
+}

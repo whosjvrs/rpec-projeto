@@ -8,6 +8,7 @@ import modelo.Pet;
  */
 public class TesteDados {
 
+    // Lê o arquivo, mostra as três situações do gerador e confere os 10.000 números
     public static void main(String[] args) throws Exception {
         // 1) Leitor: os 50 pets do arquivo
         Pet[] pets = LeitorArquivo.ler("dados/pets.txt");

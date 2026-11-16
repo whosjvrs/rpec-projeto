@@ -7,6 +7,7 @@ import modelo.Pet;
 // Cada deslocamento é contado como troca.
 public class InsertionSort extends Ordenador {
 
+    // Ordena uma cópia do vetor com o Insertion Sort e devolve comparações, deslocamentos e tempo
     @Override
     public Resultado ordenar(Pet[] original) {
         // 1. Trabalha numa cópia, para não mexer no vetor original

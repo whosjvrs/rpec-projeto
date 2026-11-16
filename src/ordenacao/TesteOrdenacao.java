@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 // Rodar na pasta rpec-projeto, para achar o dados/pets.txt.
 public class TesteOrdenacao {
 
+    // Ordena os pets do arquivo com os três algoritmos e mostra um passo a passo
     public static void main(String[] args) throws IOException {
         // Lê os pets do arquivo
         Pet[] pets = lerPets("dados/pets.txt");
