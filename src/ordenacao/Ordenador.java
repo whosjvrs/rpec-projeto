@@ -34,6 +34,8 @@ public abstract class Ordenador {
     // Compara dois pets pelo número de inscrição e CONTA a comparação
     protected boolean maior(Pet a, Pet b) {
         comparacoes++;
+        // decrescente? troque > por <  (vale para os três algoritmos)
+        // outro campo? ex.: return a.getChave().compareTo(b.getChave()) > 0;  (por nome)
         return a.getNumero() > b.getNumero();
     }
 

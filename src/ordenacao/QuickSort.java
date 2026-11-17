@@ -53,6 +53,8 @@ public class QuickSort extends Ordenador {
     // Separa o trecho em menores e maiores que o pivô e devolve a posição final do pivô
     private int particionar(Pet[] v, int inicio, int fim) {
         // O pivô é o último pet do trecho
+        // outro pivô? leve-o para o fim antes desta linha:
+        // meio: trocar(v, (inicio + fim) / 2, fim);   primeiro: trocar(v, inicio, fim);
         Pet pivot = v[fim];
 
         // i marca onde termina o grupo dos menores (começa vazio)

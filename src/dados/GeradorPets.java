@@ -20,6 +20,7 @@ public class GeradorPets {
     // Sorteador com semente fixa: cada execução do programa gera os mesmos pets,
     // então as tabelas do relatório podem ser reproduzidas.
     // (Random é só um sorteador de números, não é estrutura nem ordenação pronta.)
+    // pets diferentes a cada execução: tire o 42
     private static final Random sorteio = new Random(42);
 
     private static final int MENOR_NUMERO = 10000000;   // menor número de 8 dígitos

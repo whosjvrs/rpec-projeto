@@ -7,6 +7,7 @@ import modelo.Pet;
 public class Narrador {
 
     // A narração só liga com até 10 pets (com mais, imprimiria linhas demais)
+    // mais pets no passo a passo? aumente aqui
     public static final int LIMITE_PETS = 10;
 
     // Título de uma etapa, ex.: "♥ Bubble Sort · passagem 1"
@@ -16,6 +17,7 @@ public class Narrador {
 
     // Bubble: narra a comparação entre dois vizinhos e se eles trocam de lugar
     public static void comparacao(Pet a, Pet b, boolean trocam) {
+        // inverteu a ordem no Ordenador? troque o " > " das três frases por " < "
         System.out.print("  " + descrever(a) + " > " + descrever(b) + "? ");
         if (trocam) {
             System.out.println("SIM → trocam de lugar na fila do desfile!");
@@ -63,6 +65,7 @@ public class Narrador {
 
     // Escreve o pet como "Luna (60218841)"
     private static String descrever(Pet p) {
+        // ordenando por outro campo? mostre esse campo aqui no lugar do número
         return p.getNome() + " (" + p.getNumero() + ")";
     }
 }

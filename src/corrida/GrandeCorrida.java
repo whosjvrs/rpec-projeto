@@ -31,9 +31,11 @@ import java.util.Locale;
  */
 public class GrandeCorrida {
 
+    // tamanhos da corrida: mude aqui e ajuste os títulos em imprimirTabela
     private static final int[] TAMANHOS = {50, 1000, 10000};
     private static final Situacao[] SITUACOES = {Situacao.ALEATORIO, Situacao.ORDENADO, Situacao.INVERSO};
     private static final String[] NOMES_SITUACOES = {"Aleatório", "Já ordenado", "Ordem inversa"};
+    // mais rodadas = média de tempo mais estável
     private static final int RODADAS = 3;
 
     private static final long ESTOUROU = -1;   // marca a medição que deu StackOverflowError
@@ -116,6 +118,7 @@ public class GrandeCorrida {
     private static void imprimirTabela(String titulo, long[][] valores, String[] nomes, boolean ehTempo) {
         System.out.println("\n" + titulo);
         System.out.println(String.format("%-16s %-14s %16s %16s %16s",
+                // títulos das colunas: acompanham o vetor TAMANHOS
                 "Algoritmo", "Situação", "n = 50", "n = 1.000", "n = 10.000"));
         System.out.println("-".repeat(82));
 
