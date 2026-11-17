@@ -13,8 +13,13 @@ public class HashDoGrupo implements FuncaoHash {
     public int calcular(String chave, int m) {
         int h = 0;
         for (int i = 0; i < chave.length(); i++) {
+            // outra base? troque o 31 (ex.: 37)
             h = 31 * h + chave.charAt(i);
         }
         return Math.floorMod(h, m);   // floorMod: nunca dá negativo
     }
+
+    // Nome mostrado no menu (mudou a base? mude aqui também)
+    @Override
+    public String nome() { return "base 31"; }
 }

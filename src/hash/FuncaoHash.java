@@ -8,4 +8,7 @@ package hash;
 public interface FuncaoHash {
     // Devolve um índice de 0 a m-1
     int calcular(String chave, int m);
+
+    // Nome da função, para o menu mostrar qual está em uso
+    String nome();
 }

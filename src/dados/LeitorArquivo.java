@@ -25,6 +25,7 @@ public class LeitorArquivo {
             while ((linha = leitor.readLine()) != null) {
                 if (linha.isBlank()) continue;           // pula linhas vazias
 
+                // novo pet no arquivo: uma linha numero;nome;especie;mania no fim do pets.txt
                 String[] partes = linha.split(";");
                 if (partes.length < 4) {                 // linha mal formada: avisa e pula
                     System.out.println("Linha ignorada (formato errado): " + linha);

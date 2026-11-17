@@ -1,6 +1,5 @@
 package hash;
 
-import java.text.Normalizer;
 import modelo.Pet;
 
 /**
@@ -24,13 +23,6 @@ public class TabelaHash {
         this.quantidade = 0;
     }
 
-    // Transforma um nome digitado na chave: maiúsculas e sem acento ("Paçoca" -> "PACOCA")
-    private static String normalizar(String nome) {
-        String semAcento = Normalizer.normalize(nome.trim(), Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "");
-        return semAcento.toUpperCase();
-    }
-
     // Calcula em qual balde fica uma chave, usando a função hash escolhida
     private int indice(String chave) {
         return funcao.calcular(chave, tamanho);
@@ -47,7 +39,7 @@ public class TabelaHash {
 
     // BUSCAR: vai direto ao balde do nome e mostra TODOS os pets com esse nome
     public int buscarPorNome(String nome) {
-        String chave = normalizar(nome);
+        String chave = Pet.normalizar(nome);   // mesma regra da chave guardada
         int i = indice(chave);
         int encontrados = 0;
 

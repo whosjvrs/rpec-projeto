@@ -14,6 +14,11 @@ public class HashSomaCaracteres implements FuncaoHash {
         for (int i = 0; i < chave.length(); i++) {
             soma += chave.charAt(i);   // charAt devolve o código da letra
         }
+        // outra conta? ex.: multiplicar a soma por um número antes do % m
         return soma % m;
     }
+
+    // Nome mostrado no menu
+    @Override
+    public String nome() { return "soma dos caracteres"; }
 }

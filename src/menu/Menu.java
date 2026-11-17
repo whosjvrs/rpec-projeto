@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 /**
  * Menu de console do Concurso de Fofura. Liga as três partes do projeto:
- *   - a mesa de inscrições (tabela hash, M = 53, base 31) -> opções 1 a 5;
+ *   - a mesa de inscrições (tabela hash)                   -> opções 1 a 5;
  *   - a ordem do desfile (ordenação por nº de inscrição)  -> opções 6 e 7;
  *   - a Grande Corrida (comparação dos algoritmos)          -> opção 8.
  *
@@ -28,7 +28,11 @@ import java.util.Scanner;
  */
 public class Menu {
 
-    private static final int TAMANHO_MESA = 53;            // decisão do grupo (guia 8.4)
+    // tamanho da mesa: mude aqui (de preferência um primo)
+    private static final int TAMANHO_MESA = 53;
+    // função hash da mesa: troque por new HashSomaCaracteres() (os textos acompanham)
+    private static final FuncaoHash FUNCAO_MESA = new HashDoGrupo();            // decisão do grupo (guia 8.4)
+    // tamanhos comparados na opção 5
     private static final int[] TAMANHOS_TESTE = {13, 17, 53};
     private static final int MENOR_NUMERO = 10000000;      // nº de inscrição tem 8 dígitos
     private static final int MAIOR_NUMERO = 99999999;
@@ -40,12 +44,13 @@ public class Menu {
     private final Scanner entrada = new Scanner(System.in);
 
     // Os três algoritmos, na mesma ordem das tabelas do enunciado
+    // novo algoritmo? classe que estende Ordenador + o nome na lista de baixo
     private final Ordenador[] algoritmos = {new BubbleSort(), new InsertionSort(), new QuickSort()};
     private final String[] nomesAlgoritmos = {"Bubble Sort", "Insertion Sort", "Quick Sort"};
 
     // Monta a mesa e o vetor com os pets lidos do arquivo
     public Menu(Pet[] pets) {
-        mesa = new TabelaHash(TAMANHO_MESA, new HashDoGrupo());
+        mesa = new TabelaHash(TAMANHO_MESA, FUNCAO_MESA);
         inscritos = new Pet[pets.length + 16];   // espaço de sobra para novas inscrições
         total = 0;
         for (int i = 0; i < pets.length; i++) {
@@ -120,6 +125,7 @@ public class Menu {
         }
 
         Pet novo = new Pet(numero, nome, especie, mania);
+        // inserir: entra na mesa e no vetor; localizar depois: opção 2
         mesa.inserir(novo);
         adicionarAoVetor(novo);
         System.out.println("Inscrição feita: " + novo);
@@ -147,19 +153,18 @@ public class Menu {
 
     // Opção 4: mostra a mesa inteira, balde por balde
     private void mostrarMesa() {
-        System.out.println("\n♥ Mesa de inscrições (M = " + TAMANHO_MESA + ", função base 31)");
+        System.out.println("\n♥ Mesa de inscrições (M = " + TAMANHO_MESA + ", função " + FUNCAO_MESA.nome() + ")");
         mesa.exibir();
     }
 
     // Opção 5: estatísticas da mesa principal e a comparação de M = 13, 17, 53 com as
     // duas funções hash (dados para as perguntas 3 e 4 do relatório)
     private void estatisticas() {
-        System.out.println("\n♥ Mesa principal (M = " + TAMANHO_MESA + ", função base 31)");
+        System.out.println("\n♥ Mesa principal (M = " + TAMANHO_MESA + ", função " + FUNCAO_MESA.nome() + ")");
         mesa.exibirEstatisticas();
 
         System.out.println("\n♥ Comparação: os mesmos " + total + " competidores em outras mesas");
         FuncaoHash[] funcoes = {new HashSomaCaracteres(), new HashDoGrupo()};
-        String[] nomesFuncoes = {"soma dos caracteres", "base 31"};
         for (int t = 0; t < TAMANHOS_TESTE.length; t++) {
             for (int f = 0; f < funcoes.length; f++) {
                 // Monta uma mesa de teste só para medir; a mesa principal não muda
@@ -167,7 +172,7 @@ public class Menu {
                 for (int i = 0; i < total; i++) {
                     teste.inserir(inscritos[i]);
                 }
-                System.out.println("\n-- M = " + TAMANHOS_TESTE[t] + " · " + nomesFuncoes[f]);
+                System.out.println("\n-- M = " + TAMANHOS_TESTE[t] + " · " + funcoes[f].nome());
                 teste.exibirEstatisticas();
             }
         }
@@ -210,6 +215,7 @@ public class Menu {
         // Pega os primeiros competidores inscritos, na ordem de inscrição
         Pet[] poucos = new Pet[quantos];
         for (int i = 0; i < quantos; i++) {
+            // passo a passo usa os primeiros inscritos, na ordem do arquivo
             poucos[i] = inscritos[i];
         }
         System.out.println("\n♥ Fila antes do desfile:");

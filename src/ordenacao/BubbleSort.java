@@ -47,6 +47,7 @@ public class BubbleSort extends Ordenador {
             if (narrar) Narrador.fimEtapa("da passagem " + (i + 1), comparacoes, trocas);
 
             // 7. Parada antecipada: passagem sem nenhuma troca = fila já ordenada
+            // sem parada antecipada: apague este if (melhor caso volta a ser O(n²))
             if (!trocou) break;
         }
 

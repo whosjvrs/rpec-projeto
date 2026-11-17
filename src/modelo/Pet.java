@@ -27,9 +27,16 @@ public class Pet {
     public String getEspecie() { return especie; }
     public String getMania() { return mania; }
 
-    // Nome em maiúsculas e sem acento: "Paçoca" -> "PACOCA"
+    // Chave da tabela hash: o nome normalizado ("Paçoca" -> "PACOCA")
     public String getChave() {
-        String semAcento = Normalizer.normalize(nome, Normalizer.Form.NFD)
+        // agrupar por outro campo na tabela? troque nome por especie aqui
+        return normalizar(nome);
+    }
+
+    // Deixa um texto em maiúsculas e sem acento. Usado aqui na chave e na busca
+    // da TabelaHash, para o nome digitado e o nome guardado ficarem iguais.
+    public static String normalizar(String texto) {
+        String semAcento = Normalizer.normalize(texto.trim(), Normalizer.Form.NFD)
                                      .replaceAll("\\p{M}", "");
         return semAcento.toUpperCase();
     }
@@ -37,6 +44,7 @@ public class Pet {
     // Mostra o pet como "Paçoca (65502291) - gato, caça o ponteiro laser"
     @Override
     public String toString() {
+        // muda como o pet aparece em todas as telas
         return nome + " (" + numero + ") - " + especie + ", " + mania;
     }
 }
