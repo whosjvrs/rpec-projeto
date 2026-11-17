@@ -29,9 +29,9 @@ import java.util.Scanner;
 public class Menu {
 
     // tamanho da mesa: mude aqui (de preferência um primo)
-    private static final int TAMANHO_MESA = 53;
+    private static final int TAMANHO_MESA = 53;            // decisão do grupo (guia 8.4)
     // função hash da mesa: troque por new HashSomaCaracteres() (os textos acompanham)
-    private static final FuncaoHash FUNCAO_MESA = new HashDoGrupo();            // decisão do grupo (guia 8.4)
+    private static final FuncaoHash FUNCAO_MESA = new HashDoGrupo();
     // tamanhos comparados na opção 5
     private static final int[] TAMANHOS_TESTE = {13, 17, 53};
     private static final int MENOR_NUMERO = 10000000;      // nº de inscrição tem 8 dígitos
